@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE generatorConfiguration 
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" 
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<context id="MySqlTables" targetRuntime="MyBatis3">
+		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>  
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin> 
+         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin> 
+	 	<commentGenerator>
+           <property name="suppressDate" value="false"/>
+           <property name="suppressAllComments" value="true"/>
+    	</commentGenerator>
+		<!--配置数据库链接 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/ecrm?characterEncoding=utf8"
+			userId="root" password="root">
+		</jdbcConnection>
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+
+		<!--配置实体bean -->
+		<javaModelGenerator targetPackage="com.cheng.ecrm.entity"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		<!--配置实体map接口（dao） -->
+		<sqlMapGenerator targetPackage="conf.sqlmap"
+			targetProject="src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!--配置实体bean的sql.xml -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.cheng.ecrm.mapper" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		<!--配置实体 -->
+		 <table tableName="user" domainObjectName="User"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" 
+               selectByExampleQueryId="false">           
+              
+        </table>
+        <table tableName="yisheng" domainObjectName="YiSheng"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" 
+               selectByExampleQueryId="false">           
+        </table>  
+        <table tableName="bingli" domainObjectName="BingLi"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" 
+               selectByExampleQueryId="false">           
+        </table>
+         <table tableName="suifang" domainObjectName="SuiFang"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" 
+               selectByExampleQueryId="false">           
+        </table> 
+        <table tableName="duanxin" domainObjectName="DuanXin"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" 
+               selectByExampleQueryId="false">           
+        </table>  
+	</context>
+</generatorConfiguration>
+
+

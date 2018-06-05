@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cheng.ecrm.mapper.SuiFangKuGuanLiMapper" >
+  
+  <select id="suiFangList" parameterType="com.cheng.ecrm.body.dto.SuiFangKuDto" resultType="java.util.Map">
+  	select * from
+  	(select
+  		bl.BL_CODE blCode,
+  		max(sf.SF_START_DATE) sfDate,
+  		max(sf.SF_DIANHUA_STATE) sfState,
+  		bl.BL_KESHI blKeshi,
+  		bl.BL_SEX blSex,
+  		bl.BL_NAME blName,
+  		bl.BL_CHUSHENG_DATE blChushengDate,
+  		bl.BL_CYZD blCyzd,
+  		bl.BL_CHUYUAN_DATE blChuyuanDate
+  	from bingli bl
+  	left join suifang sf on sf.BL_CODE=bl.BL_CODE
+  	<where>
+  		
+  		<if test="suiFangType != null">and sf.SF_TYPE=#{suiFangType}</if>
+  		<if test="blKeshi != null">and bl.BL_KESHI=#{blKeshi}</if>
+  		<if test='blName != null and blName !=""'>and bl.BL_NAME=#{blName}</if>
+  	</where>
+  	group by blCode
+  	) a 
+  	<where>
+  		<if test="suiFangState != null">and a.sfState=#{suiFangState}</if>
+  	</where>
+  </select>
+  <select id="getDuanXinSuiFangByBlCode" parameterType="java.lang.String" resultType="java.util.Map">
+  	select
+  		sf.ID id,
+  		sf.BL_CODE blCode,
+  		sf.SF_START_DATE sfStartDate,
+  		sf.SF_DIANHUA_STATE sfState,
+  		sf.SF_TYPE sfType,
+  		dx.DX_BIAOTI dxBiaoti,
+  		dx.DX_NEIRONG dxNeirong
+  	from suifang sf left join duanxin dx on sf.ID = dx.SF_ID
+  	where sf.BL_CODE=#{blCode}
+  </select>
+  <select id="getSuiFangDuanXinToSend" resultType="com.cheng.ecrm.body.dto.SuiFangDuanXin">
+  	select 
+  		sf.ID sfId,
+  		sf.BL_CODE blCode,
+  		sf.SF_START_DATE sfStartDate,
+  		sf.SF_DIANHUA_STATE sfDianhuaState,
+  		sf.SF_TYPE sfType,
+  		dx.BL_DIANHUA blDianhua,
+  		dx.DX_BIAOTI dxBiaoti,
+  		dx.DX_NEIRONG dxNeirong
+  	from suifang sf left join duanxin dx on sf.ID = dx.SF_ID
+  	where sf.SF_DIANHUA_STATE = 1 
+  </select>
+  <!-- 首页 -->
+  <select id="suiFangListByMonth" resultType="java.util.Map" parameterType="java.lang.String">
+
+  select * FROM(
+	select
+  		sf.BL_CODE blCode,
+  		date_format(max(sf.SF_START_DATE), '%Y') mon,
+  		max(sf.SF_START_DATE) sfDate,
+  		max(sf.SF_DIANHUA_STATE) sfState,
+  		bl.BL_KESHI blKeshi,
+  		bl.BL_SEX blSex,
+  		bl.BL_NAME blName,
+  		bl.BL_CHUSHENG_DATE blChushengDate,
+  		bl.BL_CYZD blCyzd,
+  		bl.BL_CHUYUAN_DATE blChuyuanDate
+  	from suifang sf
+  	left join bingli bl on sf.BL_CODE=bl.BL_CODE
+
+  	group by blCode
+) a 
+  	<where>
+  		<if test="_parameter != null">and a.mon=#{mon}</if>
+ 	</where>
+  </select>
+  
+  <select id="getMaxSfId" resultType="java.lang.Integer">
+  	select MAX(ID)
+	from suifang 
+  </select>
+</mapper>

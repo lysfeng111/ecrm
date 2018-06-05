@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cheng.ecrm.mapper.UserLoginMapper" >
+  <resultMap id="BaseResultMap" type="com.cheng.ecrm.entity.User" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="ROLE_ID" property="roleId" jdbcType="INTEGER" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="PASSWD" property="passwd" jdbcType="VARCHAR" />
+    <result column="YS_CODE" property="ysCode" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ROLE_ID, USER_NAME, PASSWD, YS_CODE, EMAIL, TELEPHONE
+  </sql>
+  <select id="login" parameterType="com.cheng.ecrm.entity.User" resultMap="BaseResultMap">
+	  select 
+	  	<include refid="Base_Column_List" />
+	  from user
+	  where
+	   USER_NAME = #{userName}
+	   <if test='passwd !=null and passwd !="" '>and PASSWD = #{passwd}</if>
+
+  </select>
+  
+  <select id="nameCheck" parameterType="java.lang.String" resultType="java.lang.Integer">
+  	select count(*)
+  	from user
+  	where
+  	USER_NAME = #{userName}
+  </select>
+  <select id="updateNameCheck" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	select count(*)
+  	from user
+  	where
+  	USER_NAME = #{userName}
+  	<![CDATA[
+  	and (ID > #{id} or ID < #{id})
+  	]]>
+  </select>
+  <select id="getUserByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+  select
+  	<include refid="Base_Column_List"></include>
+  from user
+  <where>
+  	<if test="roleId != null and roleId != 0">and ROLE_ID = #{roleId}</if>
+  	<if test="userName != null">and USER_NAME = #{userName}</if>
+  </where>
+  </select>
+</mapper>

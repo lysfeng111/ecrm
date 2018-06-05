@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cheng.ecrm.mapper.BingLiMapper" >
+  <resultMap id="BaseResultMap" type="com.cheng.ecrm.entity.BingLi" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="BL_CODE" property="blCode" jdbcType="VARCHAR" />
+    <result column="BL_TYPE" property="blType" jdbcType="INTEGER" />
+    <result column="BL_KESHI" property="blKeshi" jdbcType="VARCHAR" />
+    <result column="BL_NAME" property="blName" jdbcType="VARCHAR" />
+    <result column="BL_SEX" property="blSex" jdbcType="INTEGER" />
+    <result column="BL_CHUSHENG_DATE" property="blChushengDate" jdbcType="DATE" />
+    <result column="BL_DIANHUA" property="blDianhua" jdbcType="VARCHAR" />
+    <result column="BL_JIATING_DIANHUA" property="blJiatingDianhua" jdbcType="VARCHAR" />
+    <result column="BL_ZHENGJIAN_TYPE" property="blZhengjianType" jdbcType="INTEGER" />
+    <result column="BL_ZHENGJIANHAO" property="blZhengjianhao" jdbcType="VARCHAR" />
+    <result column="BL_DIZHI" property="blDizhi" jdbcType="VARCHAR" />
+    <result column="BL_RUYUAN_DATE" property="blRuyuanDate" jdbcType="DATE" />
+    <result column="BL_CHUYUAN_DATE" property="blChuyuanDate" jdbcType="DATE" />
+    <result column="BL_MZYS_CODE" property="blMzysCode" jdbcType="VARCHAR" />
+    <result column="BL_ZYYS_CODE" property="blZyysCode" jdbcType="VARCHAR" />
+    <result column="BL_CYZD" property="blCyzd" jdbcType="VARCHAR" />
+    <result column="BL_ZDYS_CODE" property="blZdysCode" jdbcType="VARCHAR" />
+    <result column="BL_SHOUSHU_DATE" property="blShoushuDate" jdbcType="DATE" />
+    <result column="BL_XIANGQING" property="blXiangqing" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, BL_CODE, BL_TYPE, BL_KESHI, BL_NAME, BL_SEX, BL_CHUSHENG_DATE, BL_DIANHUA, BL_JIATING_DIANHUA, 
+    BL_ZHENGJIAN_TYPE, BL_ZHENGJIANHAO, BL_DIZHI, BL_RUYUAN_DATE, BL_CHUYUAN_DATE, BL_MZYS_CODE, 
+    BL_ZYYS_CODE, BL_CYZD, BL_ZDYS_CODE, BL_SHOUSHU_DATE, BL_XIANGQING
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bingli
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bingli
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cheng.ecrm.entity.BingLi" >
+    insert into bingli (ID, BL_CODE, BL_TYPE, 
+      BL_KESHI, BL_NAME, BL_SEX, 
+      BL_CHUSHENG_DATE, BL_DIANHUA, BL_JIATING_DIANHUA, 
+      BL_ZHENGJIAN_TYPE, BL_ZHENGJIANHAO, BL_DIZHI, 
+      BL_RUYUAN_DATE, BL_CHUYUAN_DATE, BL_MZYS_CODE, 
+      BL_ZYYS_CODE, BL_CYZD, BL_ZDYS_CODE, 
+      BL_SHOUSHU_DATE, BL_XIANGQING)
+    values (#{id,jdbcType=INTEGER}, #{blCode,jdbcType=VARCHAR}, #{blType,jdbcType=INTEGER}, 
+      #{blKeshi,jdbcType=VARCHAR}, #{blName,jdbcType=VARCHAR}, #{blSex,jdbcType=INTEGER}, 
+      #{blChushengDate,jdbcType=DATE}, #{blDianhua,jdbcType=VARCHAR}, #{blJiatingDianhua,jdbcType=VARCHAR}, 
+      #{blZhengjianType,jdbcType=INTEGER}, #{blZhengjianhao,jdbcType=VARCHAR}, #{blDizhi,jdbcType=VARCHAR}, 
+      #{blRuyuanDate,jdbcType=DATE}, #{blChuyuanDate,jdbcType=DATE}, #{blMzysCode,jdbcType=VARCHAR}, 
+      #{blZyysCode,jdbcType=VARCHAR}, #{blCyzd,jdbcType=VARCHAR}, #{blZdysCode,jdbcType=VARCHAR}, 
+      #{blShoushuDate,jdbcType=DATE}, #{blXiangqing,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cheng.ecrm.entity.BingLi" >
+    insert into bingli
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="blCode != null" >
+        BL_CODE,
+      </if>
+      <if test="blType != null" >
+        BL_TYPE,
+      </if>
+      <if test="blKeshi != null" >
+        BL_KESHI,
+      </if>
+      <if test="blName != null" >
+        BL_NAME,
+      </if>
+      <if test="blSex != null" >
+        BL_SEX,
+      </if>
+      <if test="blChushengDate != null" >
+        BL_CHUSHENG_DATE,
+      </if>
+      <if test="blDianhua != null" >
+        BL_DIANHUA,
+      </if>
+      <if test="blJiatingDianhua != null" >
+        BL_JIATING_DIANHUA,
+      </if>
+      <if test="blZhengjianType != null" >
+        BL_ZHENGJIAN_TYPE,
+      </if>
+      <if test="blZhengjianhao != null" >
+        BL_ZHENGJIANHAO,
+      </if>
+      <if test="blDizhi != null" >
+        BL_DIZHI,
+      </if>
+      <if test="blRuyuanDate != null" >
+        BL_RUYUAN_DATE,
+      </if>
+      <if test="blChuyuanDate != null" >
+        BL_CHUYUAN_DATE,
+      </if>
+      <if test="blMzysCode != null" >
+        BL_MZYS_CODE,
+      </if>
+      <if test="blZyysCode != null" >
+        BL_ZYYS_CODE,
+      </if>
+      <if test="blCyzd != null" >
+        BL_CYZD,
+      </if>
+      <if test="blZdysCode != null" >
+        BL_ZDYS_CODE,
+      </if>
+      <if test="blShoushuDate != null" >
+        BL_SHOUSHU_DATE,
+      </if>
+      <if test="blXiangqing != null" >
+        BL_XIANGQING,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="blCode != null" >
+        #{blCode,jdbcType=VARCHAR},
+      </if>
+      <if test="blType != null" >
+        #{blType,jdbcType=INTEGER},
+      </if>
+      <if test="blKeshi != null" >
+        #{blKeshi,jdbcType=VARCHAR},
+      </if>
+      <if test="blName != null" >
+        #{blName,jdbcType=VARCHAR},
+      </if>
+      <if test="blSex != null" >
+        #{blSex,jdbcType=INTEGER},
+      </if>
+      <if test="blChushengDate != null" >
+        #{blChushengDate,jdbcType=DATE},
+      </if>
+      <if test="blDianhua != null" >
+        #{blDianhua,jdbcType=VARCHAR},
+      </if>
+      <if test="blJiatingDianhua != null" >
+        #{blJiatingDianhua,jdbcType=VARCHAR},
+      </if>
+      <if test="blZhengjianType != null" >
+        #{blZhengjianType,jdbcType=INTEGER},
+      </if>
+      <if test="blZhengjianhao != null" >
+        #{blZhengjianhao,jdbcType=VARCHAR},
+      </if>
+      <if test="blDizhi != null" >
+        #{blDizhi,jdbcType=VARCHAR},
+      </if>
+      <if test="blRuyuanDate != null" >
+        #{blRuyuanDate,jdbcType=DATE},
+      </if>
+      <if test="blChuyuanDate != null" >
+        #{blChuyuanDate,jdbcType=DATE},
+      </if>
+      <if test="blMzysCode != null" >
+        #{blMzysCode,jdbcType=VARCHAR},
+      </if>
+      <if test="blZyysCode != null" >
+        #{blZyysCode,jdbcType=VARCHAR},
+      </if>
+      <if test="blCyzd != null" >
+        #{blCyzd,jdbcType=VARCHAR},
+      </if>
+      <if test="blZdysCode != null" >
+        #{blZdysCode,jdbcType=VARCHAR},
+      </if>
+      <if test="blShoushuDate != null" >
+        #{blShoushuDate,jdbcType=DATE},
+      </if>
+      <if test="blXiangqing != null" >
+        #{blXiangqing,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cheng.ecrm.entity.BingLi" >
+    update bingli
+    <set >
+      <if test="blCode != null" >
+        BL_CODE = #{blCode,jdbcType=VARCHAR},
+      </if>
+      <if test="blType != null" >
+        BL_TYPE = #{blType,jdbcType=INTEGER},
+      </if>
+      <if test="blKeshi != null" >
+        BL_KESHI = #{blKeshi,jdbcType=VARCHAR},
+      </if>
+      <if test="blName != null" >
+        BL_NAME = #{blName,jdbcType=VARCHAR},
+      </if>
+      <if test="blSex != null" >
+        BL_SEX = #{blSex,jdbcType=INTEGER},
+      </if>
+      <if test="blChushengDate != null" >
+        BL_CHUSHENG_DATE = #{blChushengDate,jdbcType=DATE},
+      </if>
+      <if test="blDianhua != null" >
+        BL_DIANHUA = #{blDianhua,jdbcType=VARCHAR},
+      </if>
+      <if test="blJiatingDianhua != null" >
+        BL_JIATING_DIANHUA = #{blJiatingDianhua,jdbcType=VARCHAR},
+      </if>
+      <if test="blZhengjianType != null" >
+        BL_ZHENGJIAN_TYPE = #{blZhengjianType,jdbcType=INTEGER},
+      </if>
+      <if test="blZhengjianhao != null" >
+        BL_ZHENGJIANHAO = #{blZhengjianhao,jdbcType=VARCHAR},
+      </if>
+      <if test="blDizhi != null" >
+        BL_DIZHI = #{blDizhi,jdbcType=VARCHAR},
+      </if>
+      <if test="blRuyuanDate != null" >
+        BL_RUYUAN_DATE = #{blRuyuanDate,jdbcType=DATE},
+      </if>
+      <if test="blChuyuanDate != null" >
+        BL_CHUYUAN_DATE = #{blChuyuanDate,jdbcType=DATE},
+      </if>
+      <if test="blMzysCode != null" >
+        BL_MZYS_CODE = #{blMzysCode,jdbcType=VARCHAR},
+      </if>
+      <if test="blZyysCode != null" >
+        BL_ZYYS_CODE = #{blZyysCode,jdbcType=VARCHAR},
+      </if>
+      <if test="blCyzd != null" >
+        BL_CYZD = #{blCyzd,jdbcType=VARCHAR},
+      </if>
+      <if test="blZdysCode != null" >
+        BL_ZDYS_CODE = #{blZdysCode,jdbcType=VARCHAR},
+      </if>
+      <if test="blShoushuDate != null" >
+        BL_SHOUSHU_DATE = #{blShoushuDate,jdbcType=DATE},
+      </if>
+      <if test="blXiangqing != null" >
+        BL_XIANGQING = #{blXiangqing,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cheng.ecrm.entity.BingLi" >
+    update bingli
+    set BL_CODE = #{blCode,jdbcType=VARCHAR},
+      BL_TYPE = #{blType,jdbcType=INTEGER},
+      BL_KESHI = #{blKeshi,jdbcType=VARCHAR},
+      BL_NAME = #{blName,jdbcType=VARCHAR},
+      BL_SEX = #{blSex,jdbcType=INTEGER},
+      BL_CHUSHENG_DATE = #{blChushengDate,jdbcType=DATE},
+      BL_DIANHUA = #{blDianhua,jdbcType=VARCHAR},
+      BL_JIATING_DIANHUA = #{blJiatingDianhua,jdbcType=VARCHAR},
+      BL_ZHENGJIAN_TYPE = #{blZhengjianType,jdbcType=INTEGER},
+      BL_ZHENGJIANHAO = #{blZhengjianhao,jdbcType=VARCHAR},
+      BL_DIZHI = #{blDizhi,jdbcType=VARCHAR},
+      BL_RUYUAN_DATE = #{blRuyuanDate,jdbcType=DATE},
+      BL_CHUYUAN_DATE = #{blChuyuanDate,jdbcType=DATE},
+      BL_MZYS_CODE = #{blMzysCode,jdbcType=VARCHAR},
+      BL_ZYYS_CODE = #{blZyysCode,jdbcType=VARCHAR},
+      BL_CYZD = #{blCyzd,jdbcType=VARCHAR},
+      BL_ZDYS_CODE = #{blZdysCode,jdbcType=VARCHAR},
+      BL_SHOUSHU_DATE = #{blShoushuDate,jdbcType=DATE},
+      BL_XIANGQING = #{blXiangqing,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

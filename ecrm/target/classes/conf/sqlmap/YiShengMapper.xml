@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cheng.ecrm.mapper.YiShengMapper" >
+  <resultMap id="BaseResultMap" type="com.cheng.ecrm.entity.YiSheng" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="YS_CODE" property="ysCode" jdbcType="VARCHAR" />
+    <result column="YS_NAME" property="ysName" jdbcType="VARCHAR" />
+    <result column="YS_KESHI" property="ysKeshi" jdbcType="VARCHAR" />
+    <result column="YS_ZHIWEI" property="ysZhiwei" jdbcType="VARCHAR" />
+    <result column="YS_NIANLING" property="ysNianling" jdbcType="INTEGER" />
+    <result column="YS_DIANHUA" property="ysDianhua" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, YS_CODE, YS_NAME, YS_KESHI, YS_ZHIWEI, YS_NIANLING, YS_DIANHUA
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yisheng
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yisheng
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cheng.ecrm.entity.YiSheng" >
+    insert into yisheng (ID, YS_CODE, YS_NAME, 
+      YS_KESHI, YS_ZHIWEI, YS_NIANLING, 
+      YS_DIANHUA)
+    values (#{id,jdbcType=INTEGER}, #{ysCode,jdbcType=VARCHAR}, #{ysName,jdbcType=VARCHAR}, 
+      #{ysKeshi,jdbcType=VARCHAR}, #{ysZhiwei,jdbcType=VARCHAR}, #{ysNianling,jdbcType=INTEGER}, 
+      #{ysDianhua,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cheng.ecrm.entity.YiSheng" >
+    insert into yisheng
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="ysCode != null" >
+        YS_CODE,
+      </if>
+      <if test="ysName != null" >
+        YS_NAME,
+      </if>
+      <if test="ysKeshi != null" >
+        YS_KESHI,
+      </if>
+      <if test="ysZhiwei != null" >
+        YS_ZHIWEI,
+      </if>
+      <if test="ysNianling != null" >
+        YS_NIANLING,
+      </if>
+      <if test="ysDianhua != null" >
+        YS_DIANHUA,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ysCode != null" >
+        #{ysCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ysName != null" >
+        #{ysName,jdbcType=VARCHAR},
+      </if>
+      <if test="ysKeshi != null" >
+        #{ysKeshi,jdbcType=VARCHAR},
+      </if>
+      <if test="ysZhiwei != null" >
+        #{ysZhiwei,jdbcType=VARCHAR},
+      </if>
+      <if test="ysNianling != null" >
+        #{ysNianling,jdbcType=INTEGER},
+      </if>
+      <if test="ysDianhua != null" >
+        #{ysDianhua,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cheng.ecrm.entity.YiSheng" >
+    update yisheng
+    <set >
+      <if test="ysCode != null" >
+        YS_CODE = #{ysCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ysName != null" >
+        YS_NAME = #{ysName,jdbcType=VARCHAR},
+      </if>
+      <if test="ysKeshi != null" >
+        YS_KESHI = #{ysKeshi,jdbcType=VARCHAR},
+      </if>
+      <if test="ysZhiwei != null" >
+        YS_ZHIWEI = #{ysZhiwei,jdbcType=VARCHAR},
+      </if>
+      <if test="ysNianling != null" >
+        YS_NIANLING = #{ysNianling,jdbcType=INTEGER},
+      </if>
+      <if test="ysDianhua != null" >
+        YS_DIANHUA = #{ysDianhua,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cheng.ecrm.entity.YiSheng" >
+    update yisheng
+    set YS_CODE = #{ysCode,jdbcType=VARCHAR},
+      YS_NAME = #{ysName,jdbcType=VARCHAR},
+      YS_KESHI = #{ysKeshi,jdbcType=VARCHAR},
+      YS_ZHIWEI = #{ysZhiwei,jdbcType=VARCHAR},
+      YS_NIANLING = #{ysNianling,jdbcType=INTEGER},
+      YS_DIANHUA = #{ysDianhua,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

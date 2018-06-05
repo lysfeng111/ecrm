@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cheng.ecrm.mapper.YiShengMsgMapper" >
+  <resultMap id="BaseResultMap" type="com.cheng.ecrm.entity.YiSheng" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="YS_CODE" property="ysCode" jdbcType="VARCHAR" />
+    <result column="YS_NAME" property="ysName" jdbcType="VARCHAR" />
+    <result column="YS_KESHI" property="ysKeshi" jdbcType="VARCHAR" />
+    <result column="YS_ZHIWEI" property="ysZhiwei" jdbcType="VARCHAR" />
+    <result column="YS_NIANLING" property="ysNianling" jdbcType="INTEGER" />
+    <result column="YS_DIANHUA" property="ysDianhua" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, YS_CODE, YS_NAME, YS_KESHI, YS_ZHIWEI, YS_NIANLING, YS_DIANHUA
+  </sql>
+  
+  <select id="getNameFromCode" parameterType="java.lang.String" resultType="java.lang.String">
+  	select YS_NAME from yisheng
+  	where YS_CODE = #{code}
+  </select>
+  <select id="getCodeByName" parameterType="java.lang.String" resultType="java.lang.String">
+  	select YS_CODE from yisheng
+  	where YS_NAME = #{name}
+  </select>
+  <select id="yiShengLogin" parameterType="com.cheng.ecrm.entity.User" resultMap="BaseResultMap">
+  	select
+  		<include refid="Base_Column_List"></include>
+  	from yisheng
+  	where
+  		YS_CODE = #{userName}
+  		<if test='passwd != null and passwd !=""'>and YS_CODE = #{passwd}</if>
+  </select>
+</mapper>

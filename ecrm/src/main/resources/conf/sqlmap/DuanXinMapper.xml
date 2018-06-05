@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cheng.ecrm.mapper.DuanXinMapper" >
+  <resultMap id="BaseResultMap" type="com.cheng.ecrm.entity.DuanXin" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SF_ID" property="sfId" jdbcType="INTEGER" />
+    <result column="BL_DIANHUA" property="blDianhua" jdbcType="VARCHAR" />
+    <result column="DX_TYPE" property="dxType" jdbcType="INTEGER" />
+    <result column="DX_BIAOTI" property="dxBiaoti" jdbcType="VARCHAR" />
+    <result column="DX_NEIRONG" property="dxNeirong" jdbcType="VARCHAR" />
+    <result column="DX_JIANGE" property="dxJiange" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SF_ID, BL_DIANHUA, DX_TYPE, DX_BIAOTI, DX_NEIRONG, DX_JIANGE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from duanxin
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from duanxin
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cheng.ecrm.entity.DuanXin" >
+    insert into duanxin (ID, SF_ID, BL_DIANHUA, 
+      DX_TYPE, DX_BIAOTI, DX_NEIRONG, 
+      DX_JIANGE)
+    values (#{id,jdbcType=INTEGER}, #{sfId,jdbcType=INTEGER}, #{blDianhua,jdbcType=VARCHAR}, 
+      #{dxType,jdbcType=INTEGER}, #{dxBiaoti,jdbcType=VARCHAR}, #{dxNeirong,jdbcType=VARCHAR}, 
+      #{dxJiange,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cheng.ecrm.entity.DuanXin" >
+    insert into duanxin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="sfId != null" >
+        SF_ID,
+      </if>
+      <if test="blDianhua != null" >
+        BL_DIANHUA,
+      </if>
+      <if test="dxType != null" >
+        DX_TYPE,
+      </if>
+      <if test="dxBiaoti != null" >
+        DX_BIAOTI,
+      </if>
+      <if test="dxNeirong != null" >
+        DX_NEIRONG,
+      </if>
+      <if test="dxJiange != null" >
+        DX_JIANGE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sfId != null" >
+        #{sfId,jdbcType=INTEGER},
+      </if>
+      <if test="blDianhua != null" >
+        #{blDianhua,jdbcType=VARCHAR},
+      </if>
+      <if test="dxType != null" >
+        #{dxType,jdbcType=INTEGER},
+      </if>
+      <if test="dxBiaoti != null" >
+        #{dxBiaoti,jdbcType=VARCHAR},
+      </if>
+      <if test="dxNeirong != null" >
+        #{dxNeirong,jdbcType=VARCHAR},
+      </if>
+      <if test="dxJiange != null" >
+        #{dxJiange,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cheng.ecrm.entity.DuanXin" >
+    update duanxin
+    <set >
+      <if test="sfId != null" >
+        SF_ID = #{sfId,jdbcType=INTEGER},
+      </if>
+      <if test="blDianhua != null" >
+        BL_DIANHUA = #{blDianhua,jdbcType=VARCHAR},
+      </if>
+      <if test="dxType != null" >
+        DX_TYPE = #{dxType,jdbcType=INTEGER},
+      </if>
+      <if test="dxBiaoti != null" >
+        DX_BIAOTI = #{dxBiaoti,jdbcType=VARCHAR},
+      </if>
+      <if test="dxNeirong != null" >
+        DX_NEIRONG = #{dxNeirong,jdbcType=VARCHAR},
+      </if>
+      <if test="dxJiange != null" >
+        DX_JIANGE = #{dxJiange,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cheng.ecrm.entity.DuanXin" >
+    update duanxin
+    set SF_ID = #{sfId,jdbcType=INTEGER},
+      BL_DIANHUA = #{blDianhua,jdbcType=VARCHAR},
+      DX_TYPE = #{dxType,jdbcType=INTEGER},
+      DX_BIAOTI = #{dxBiaoti,jdbcType=VARCHAR},
+      DX_NEIRONG = #{dxNeirong,jdbcType=VARCHAR},
+      DX_JIANGE = #{dxJiange,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

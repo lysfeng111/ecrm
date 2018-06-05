@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cheng.ecrm.mapper.BingLiGuanLiMapper">
+	<resultMap id="BingLiGuanLi" type="com.cheng.ecrm.entity.BingLiGuanLi">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="BL_CODE" jdbcType="VARCHAR" property="blCode" />
+    <result column="BL_TYPE" jdbcType="INTEGER" property="blType" />
+    <result column="BL_KESHI" jdbcType="VARCHAR" property="blKeshi" />
+    <result column="BL_NAME" jdbcType="VARCHAR" property="blName" />
+    <result column="BL_SEX" jdbcType="INTEGER" property="blSex" />
+    <result column="BL_CHUSHENG_DATE" jdbcType="DATE" property="blChushengDate" />
+    <result column="BL_DIANHUA" jdbcType="VARCHAR" property="blDianhua" />
+    <result column="BL_JIATING_DIANHUA" jdbcType="VARCHAR" property="blJiatingDianhua" />
+    <result column="BL_ZHENGJIAN_TYPE" jdbcType="INTEGER" property="blZhengjianType" />
+    <result column="BL_ZHENGJIANHAO" jdbcType="VARCHAR" property="blZhengjianhao" />
+    <result column="BL_DIZHI" jdbcType="VARCHAR" property="blDizhi" />
+    <result column="BL_RUYUAN_DATE" jdbcType="DATE" property="blRuyuanDate" />
+    <result column="BL_CHUYUAN_DATE" jdbcType="DATE" property="blChuyuanDate" />
+    <result column="BL_MZYS_CODE" jdbcType="VARCHAR" property="blMzysCode" />
+    <result column="BL_ZYYS_CODE" jdbcType="VARCHAR" property="blZyysCode" />
+    <result column="BL_CYZD" jdbcType="VARCHAR" property="blCyzd" />
+    <result column="BL_ZDYS_CODE" jdbcType="VARCHAR" property="blZdysCode" />
+    <result column="BL_SHOUSHU_DATE" property="blShoushuDate" />
+    <result column="BL_XIANGQING" jdbcType="VARCHAR" property="blXiangqing" />
+    
+    <result column="YS_MZYS_NAME" property="blMzysName" />
+    <result column="YS_ZYYS_NAME" property="blZyysName" />
+  </resultMap>
+  
+	<sql id="Base_Column_List">
+	    BL_CODE, BL_TYPE, BL_KESHI, BL_NAME, BL_SEX, BL_CHUSHENG_DATE, BL_DIANHUA, BL_JIATING_DIANHUA, 
+	    BL_ZHENGJIAN_TYPE, BL_ZHENGJIANHAO, BL_DIZHI, BL_RUYUAN_DATE, BL_CHUYUAN_DATE, BL_MZYS_CODE, 
+	    BL_ZYYS_CODE, BL_CYZD, BL_ZDYS_CODE, BL_XIANGQING
+  	</sql>
+	<select id="bingLiList" parameterType="com.cheng.ecrm.body.dto.BingLiListDto" resultMap="BingLiGuanLi">
+  	select mz.YS_NAME YS_MZYS_NAME, zy.YS_NAME YS_ZYYS_NAME,bl.ID,
+  	date_format(bl.BL_SHOUSHU_DATE,'%Y-%m-%d'),
+  	 <include refid="Base_Column_List" />
+  	from bingli bl
+  	left join yisheng mz on mz.YS_CODE = bl.BL_MZYS_CODE
+  	left join yisheng zy on zy.YS_CODE = bl.BL_ZYYS_CODE
+  	<where>
+  		<if test="blType != null">and bl.BL_TYPE=#{blType}</if>
+  		<if test="blKeshi != null">and bl.BL_KESHI=#{blKeshi}</if>
+  		<if test='blName != null and blName != "" '>and bl.BL_NAME=#{blName}</if>
+  		<if test="nianLing != null">
+  			<choose>
+  				<when test="nianLing == 1">and datediff(year, now(),bl.BL_CHUSHENG_DATE) in (0,1,2,3,4,5)</when>
+  				<when test="nianLing == 2">and datediff(year, now(),bl.BL_CHUSHENG_DATE) in (6,7,8,9,10)</when>
+  				<when test="nianLing == 3">and datediff(year, now(),bl.BL_CHUSHENG_DATE) in (11,12,13,14,15,16,17,18,19,20)</when>
+  				<when test="nianLing == 4">and datediff(year, now(),bl.BL_CHUSHENG_DATE) in (21,22,23,24,25,26,27,28,29,30)</when>
+  				<when test="nianLing == 5">and datediff(year, now(),bl.BL_CHUSHENG_DATE) in (31,32,33,34,35,36,37,38,39,40)</when>
+  				<when test="nianLing == 6">and datediff(year, now(),bl.BL_CHUSHENG_DATE) in (41,42,43,44,45,46,47,48,49,50)</when>
+  				<when test="nianLing == 7">and datediff(year, now(),bl.BL_CHUSHENG_DATE) in (51,52,53,54,55,56,57,58,59,60)</when>
+  				<when test="nianLing == 8"><![CDATA[and datediff(year, now(),bl.BL_CHUSHENG_DATE) > 60]]></when>
+  				<otherwise></otherwise>
+  			</choose>
+  		</if>
+  		<if test='ysName != null and ysName !=""'>and (mz.YS_NAME=#{ysName} or zy.YS_NAME=#{ysName})</if>
+  	</where>
+  	order by BL_RUYUAN_DATE
+  </select>
+  
+  <select id="getBingLiByBlCode" parameterType="java.lang.String" resultMap="BingLiGuanLi">
+  	select mz.YS_NAME YS_MZYS_NAME, zy.YS_NAME YS_ZYYS_NAME,bl.ID,
+  	date_format(bl.BL_SHOUSHU_DATE,'%Y-%m-%d') BL_SHOUSHU_DATE,
+  	 <include refid="Base_Column_List" />
+  	from bingli bl
+  	left join yisheng mz on mz.YS_CODE = bl.BL_MZYS_CODE
+  	left join yisheng zy on zy.YS_CODE = bl.BL_ZYYS_CODE
+  	where bl.BL_CODE = #{blCode}
+  </select>
+  <select id="getXinZenBingLi" resultType="java.lang.String">
+  	select BL_CODE blCode
+  	from bingli
+  		order by cast(BL_CODE as SIGNED INTEGER) DESC
+	LIMIT 1
+  </select>
+  
+  <select id="getBlNameByBlCode" parameterType="java.lang.String" resultType="java.lang.String">
+  	select BL_NAME blName
+  	from bingli
+  	where BL_CODE = #{blCode}
+  </select>
+</mapper>
